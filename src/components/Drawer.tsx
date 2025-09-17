@@ -1,12 +1,13 @@
 import { useAppStore } from '../store'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 export default function Drawer() {
-  const { drawerOpen, setDrawer, shareWithFamily, setShare, language, setLanguage } = useAppStore()
+  const navigate = useNavigate()
+  const { drawerOpen, setDrawer, shareWithFamily, setShare, language, setLanguage, isAuthenticated, userName, logout } = useAppStore()
   return (
     <div className={`drawer ${drawerOpen ? 'open' : ''}`} role="dialog" aria-modal="true">
       <div style={{display:'flex',alignItems:'center',justifyContent:'space-between'}}>
-        <div className="brand"><div className="logo"/><strong>Menu</strong></div>
+        <div className="brand"><div className="logo"/>{isAuthenticated ? <strong>Hello, {userName}</strong> : <strong>Menu</strong>}</div>
         <button className="hamburger" onClick={() => setDrawer(false)} aria-label="Close menu">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#e5e7eb" strokeWidth="2"><path d="M6 6l12 12M6 18L18 6"/></svg>
         </button>
@@ -27,6 +28,11 @@ export default function Drawer() {
       </div>
 
       <Link to="/profile" onClick={()=>setDrawer(false)} className="toggle">Digital ID / My Profile</Link>
+      {isAuthenticated ? (
+        <button className="btn btn-outline" onClick={()=>{ logout(); setDrawer(false); navigate('/login') }}>Logout</button>
+      ) : (
+        <button className="btn btn-primary" onClick={()=>{ setDrawer(false); navigate('/login') }}>Login</button>
+      )}
       <a className="toggle" href="#about">About SafeTrails</a>
       <a className="toggle" href="#help">Help</a>
 
