@@ -2,9 +2,8 @@
   "name": "safetrails",
   "private": true,
   "version": "0.1.0",
-  "homepage": "https://swechchhapatel.github.io/SafeTrails/"
-  "type": "module"
-},
+  "homepage": "https://swechchhapatel.github.io/SafeTrails/",
+  "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
@@ -31,4 +30,3 @@
     "vite": "^5.4.3"
   }
 }
-
